@@ -1,1 +1,4 @@
 .ipynb_checkpoints
+demoapp/src/bundle.js
+demoapp/src/index.js
+demoapp/node_modules

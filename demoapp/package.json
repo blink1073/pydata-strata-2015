@@ -1,0 +1,75 @@
+{
+  "name": "phosphor-dockpanel",
+  "version": "0.9.1",
+  "description": "A widget which provides a flexible docking area for content widgets.",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "dependencies": {
+    "phosphor-arrays": "^1.0.3",
+    "phosphor-boxpanel": "^0.9.3",
+    "phosphor-disposable": "^1.0.2",
+    "phosphor-dockpanel": "^0.9.1",
+    "phosphor-domutil": "^0.9.4",
+    "phosphor-properties": "^1.1.0",
+    "phosphor-splitpanel": "^0.9.4",
+    "phosphor-stackedpanel": "^0.9.4",
+    "phosphor-tabs": "^0.9.5",
+    "phosphor-widget": "^0.9.8",
+    "term.js": "^0.0.7"
+  },
+  "devDependencies": {
+    "browserify": "^11.0.1",
+    "browserify-css": "^0.6.1",
+    "browserify-istanbul": "^0.2.1",
+    "coveralls": "^2.11.4",
+    "expect.js": "^0.3.1",
+    "glob-copy": "^0.1.0",
+    "karma": "^0.13.9",
+    "karma-browserify": "^4.3.0",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-coverage": "^0.5.0",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-ie-launcher": "^0.2.0",
+    "karma-mocha": "^0.2.0",
+    "karma-mocha-reporter": "^1.1.1",
+    "mocha": "^2.2.5",
+    "rimraf": "^2.4.2",
+    "typedoc": "git://github.com/phosphorjs/typedoc.git",
+    "typescript": "1.6.0-beta"
+  },
+  "scripts": {
+    "clean": "rimraf lib && rimraf test/build && rimraf test/coverage",
+    "clean:src": "rimraf src/*.js",
+    "build:src": "tsc --project src && browserify -t browserify-css src/index.js -o src/bundle.js",
+    "build": "npm run build:src",
+    "postinstall": "npm dedupe",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sccolbert/pydata-strata-2015"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/index.css",
+    "lib/index.d.ts"
+  ],
+  "browserify": {
+    "transform": ["browserify-css"]
+  },
+  "keywords": [
+    "ui",
+    "dock",
+    "docking",
+    "dockpanel",
+    "panel",
+    "widget",
+    "widgets"
+  ],
+  "author": "S. Chris Colbert <sccolbert@gmail.com>",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/phosphorjs/phosphor-dockpanel/issues"
+  },
+  "homepage": "https://github.com/phosphorjs/phosphor-dockpanel"
+}

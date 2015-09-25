@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "noEmitOnError": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "ES5"
+  },
+  "files": [
+    "index.ts",
+    "../typings/codemirror/codemirror.d.ts",
+    "../typings/term.js.d.ts"
+  ]
+}
