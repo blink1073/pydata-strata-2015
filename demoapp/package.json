@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "dependencies": {
+    "notebookjs": "0.2.2",
     "phosphor-arrays": "^1.0.3",
     "phosphor-boxpanel": "^0.9.3",
     "phosphor-disposable": "^1.0.2",

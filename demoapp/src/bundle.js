@@ -17767,6 +17767,60 @@ var CodeMirrorWidget = (function (_super) {
     };
     return CodeMirrorWidget;
 })(phosphor_widget_1.Widget);
+// class NotebookWidget extends Widget {
+//   constructor() {
+//     super();
+//     var ipynb: any = {
+//       "metadata": {
+//         "name": ""
+//       },
+//       "nbformat": 3,
+//       "nbformat_minor": 0,
+//       "worksheets": [
+//         {
+//           "cells": [
+//             {
+//               "cell_type": "code",
+//               "collapsed": false,
+//               "input": [],
+//               "language": "python",
+//               "metadata": {},
+//               "outputs": []
+//             }
+//           ],
+//           "metadata": {}
+//         }
+//       ]
+//     };
+//     var nbk = new nb();
+//     var notebook = nbk.parse(ipynb);
+//     var rendered = notebook.render();
+//     this.node.appendChild(rendered);
+//   }
+// }
+var NotebookWidget = (function (_super) {
+    __extends(NotebookWidget, _super);
+    function NotebookWidget() {
+        _super.call(this);
+        this._frame = document.createElement('iframe');
+        this._frame.setAttribute("src", "http://localhost:8888/tree");
+        this._frame.setAttribute("frameborder", "0");
+        this.node.appendChild(this._frame);
+    }
+    NotebookWidget.prototype.onAfterAttach = function (msg) {
+        this._frame.refresh();
+    };
+    NotebookWidget.prototype.onResize = function (msg) {
+        if (msg.width < 0 || msg.height < 0) {
+            this._frame.refresh();
+        }
+        else {
+            this._frame.style.width = msg.width;
+            this._frame.style.height = msg.height;
+        }
+    };
+    return NotebookWidget;
+})(phosphor_widget_1.Widget);
 function main() {
     // Codemirror tab
     //
@@ -17777,6 +17831,13 @@ function main() {
     });
     var cmTab = new phosphor_tabs_1.Tab('Codemirror');
     phosphor_dockpanel_1.DockPanel.setTab(cm, cmTab);
+    // Text file tab
+    var text = new CodeMirrorWidget({
+        lineNumbers: false,
+        tabSize: 4
+    });
+    var textTab = new phosphor_tabs_1.Tab('Text File 1');
+    phosphor_dockpanel_1.DockPanel.setTab(text, textTab);
     // Terminal tab
     //
     var protocol = (window.location.protocol.indexOf("https") === 0) ? "wss" : "ws";
@@ -17784,6 +17845,11 @@ function main() {
     var term = new TerminalWidget(wsUrl);
     var termTab = new phosphor_tabs_1.Tab('Terminal');
     phosphor_dockpanel_1.DockPanel.setTab(term, termTab);
+    // Notebook tab
+    //
+    var notebook = new NotebookWidget();
+    var nbTab = new phosphor_tabs_1.Tab('Notebook');
+    phosphor_dockpanel_1.DockPanel.setTab(notebook, nbTab);
     // Dummy content
     //
     var r1 = createContent('Red');
@@ -17805,15 +17871,17 @@ function main() {
     //panel.addWidget(b1, DockPanel.SplitRight, r1);
     panel.addWidget(term, phosphor_dockpanel_1.DockPanel.SplitBottom, b1);
     //panel.addWidget(y1, DockPanel.SplitBottom, b1);
-    panel.addWidget(g1, phosphor_dockpanel_1.DockPanel.SplitLeft, y1);
-    panel.addWidget(b2, phosphor_dockpanel_1.DockPanel.SplitBottom);
-    panel.addWidget(y2, phosphor_dockpanel_1.DockPanel.TabBefore, r1);
-    panel.addWidget(b3, phosphor_dockpanel_1.DockPanel.TabBefore, y2);
-    panel.addWidget(g2, phosphor_dockpanel_1.DockPanel.TabBefore, b2);
-    panel.addWidget(y3, phosphor_dockpanel_1.DockPanel.TabBefore, g2);
-    panel.addWidget(g3, phosphor_dockpanel_1.DockPanel.TabBefore, y3);
-    panel.addWidget(r2, phosphor_dockpanel_1.DockPanel.TabBefore, b1);
-    panel.addWidget(r3, phosphor_dockpanel_1.DockPanel.TabBefore, y1);
+    panel.addWidget(text, phosphor_dockpanel_1.DockPanel.SplitLeft, y1);
+    // panel.addWidget(g1, DockPanel.SplitLeft, y1);
+    panel.addWidget(notebook, phosphor_dockpanel_1.DockPanel.SplitBottom);
+    // panel.addWidget(b2, DockPanel.SplitBottom);
+    // panel.addWidget(y2, DockPanel.TabBefore, r1);
+    // panel.addWidget(b3, DockPanel.TabBefore, y2);
+    // panel.addWidget(g2, DockPanel.TabBefore, b2);
+    // panel.addWidget(y3, DockPanel.TabBefore, g2);
+    // panel.addWidget(g3, DockPanel.TabBefore, y3);
+    // panel.addWidget(r2, DockPanel.TabBefore, b1);
+    // panel.addWidget(r3, DockPanel.TabBefore, y1);
     phosphor_widget_1.attachWidget(panel, document.body);
     window.onresize = function () { return panel.update(); };
 }

@@ -8,6 +8,10 @@
 'use-strict';
 
 import {
+  nb
+} from 'notebookjs';
+
+import {
   DockPanel
 } from 'phosphor-dockpanel';
 
@@ -16,7 +20,7 @@ import {
 } from 'phosphor-messaging';
 
 import {
-Tab
+  Tab
 } from 'phosphor-tabs';
 
 import {
@@ -28,10 +32,6 @@ import {
 } from 'term.js';
 
 import './index.css';
-
-
-//import Size = phosphor.utility.Size;
-//import SizePolicy = phosphor.widgets.SizePolicy;
 
 
 /**
@@ -220,7 +220,6 @@ class CodeMirrorWidget extends Widget {
 }
 
 
-
 function main(): void {
 
   // Codemirror tab
@@ -233,6 +232,14 @@ function main(): void {
   var cmTab = new Tab('Codemirror');
   DockPanel.setTab(cm, cmTab);
 
+  // Text file tab
+  var text = new CodeMirrorWidget({
+      lineNumbers: false,
+      tabSize: 4
+  });
+  var textTab = new Tab('Text File 1');
+  DockPanel.setTab(text, textTab);
+
   // Terminal tab
   //
   var protocol = (window.location.protocol.indexOf("https") === 0) ? "wss" : "ws";
@@ -240,6 +247,12 @@ function main(): void {
   var term = new TerminalWidget(wsUrl);
   var termTab = new Tab('Terminal');
   DockPanel.setTab(term, termTab);
+
+  // Notebook tab
+  //
+  var notebook = new NotebookWidget();
+  var nbTab = new Tab('Notebook');
+  DockPanel.setTab(notebook, nbTab);
 
   // Dummy content
   //
@@ -268,17 +281,19 @@ function main(): void {
   //panel.addWidget(b1, DockPanel.SplitRight, r1);
   panel.addWidget(term, DockPanel.SplitBottom, b1);
   //panel.addWidget(y1, DockPanel.SplitBottom, b1);
-  panel.addWidget(g1, DockPanel.SplitLeft, y1);
+  panel.addWidget(text, DockPanel.SplitLeft, y1);
+  // panel.addWidget(g1, DockPanel.SplitLeft, y1);
 
-  panel.addWidget(b2, DockPanel.SplitBottom);
+  panel.addWidget(notebook, DockPanel.SplitBottom);
+  // panel.addWidget(b2, DockPanel.SplitBottom);
 
-  panel.addWidget(y2, DockPanel.TabBefore, r1);
-  panel.addWidget(b3, DockPanel.TabBefore, y2);
-  panel.addWidget(g2, DockPanel.TabBefore, b2);
-  panel.addWidget(y3, DockPanel.TabBefore, g2);
-  panel.addWidget(g3, DockPanel.TabBefore, y3);
-  panel.addWidget(r2, DockPanel.TabBefore, b1);
-  panel.addWidget(r3, DockPanel.TabBefore, y1);
+  // panel.addWidget(y2, DockPanel.TabBefore, r1);
+  // panel.addWidget(b3, DockPanel.TabBefore, y2);
+  // panel.addWidget(g2, DockPanel.TabBefore, b2);
+  // panel.addWidget(y3, DockPanel.TabBefore, g2);
+  // panel.addWidget(g3, DockPanel.TabBefore, y3);
+  // panel.addWidget(r2, DockPanel.TabBefore, b1);
+  // panel.addWidget(r3, DockPanel.TabBefore, y1);
 
   attachWidget(panel, document.body);
 
