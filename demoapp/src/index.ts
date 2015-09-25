@@ -248,52 +248,12 @@ function main(): void {
   var termTab = new Tab('Terminal');
   DockPanel.setTab(term, termTab);
 
-  // Notebook tab
-  //
-  var notebook = new NotebookWidget();
-  var nbTab = new Tab('Notebook');
-  DockPanel.setTab(notebook, nbTab);
-
-  // Dummy content
-  //
-  var r1 = createContent('Red');
-  var r2 = createContent('Red');
-  var r3 = createContent('Red');
-
-  var b1 = createContent('Blue');
-  var b2 = createContent('Blue');
-  var b3 = createContent('Blue');
-
-  var g1 = createContent('Green');
-  var g2 = createContent('Green');
-  var g3 = createContent('Green');
-
-  var y1 = createContent('Yellow');
-  var y2 = createContent('Yellow');
-  var y3 = createContent('Yellow');
-
   var panel = new DockPanel();
   panel.id = 'main';
 
-  panel.addWidget(r1);
-
-  panel.addWidget(cm, DockPanel.SplitRight, r1);
-  //panel.addWidget(b1, DockPanel.SplitRight, r1);
-  panel.addWidget(term, DockPanel.SplitBottom, b1);
-  //panel.addWidget(y1, DockPanel.SplitBottom, b1);
-  panel.addWidget(text, DockPanel.SplitLeft, y1);
-  // panel.addWidget(g1, DockPanel.SplitLeft, y1);
-
-  panel.addWidget(notebook, DockPanel.SplitBottom);
-  // panel.addWidget(b2, DockPanel.SplitBottom);
-
-  // panel.addWidget(y2, DockPanel.TabBefore, r1);
-  // panel.addWidget(b3, DockPanel.TabBefore, y2);
-  // panel.addWidget(g2, DockPanel.TabBefore, b2);
-  // panel.addWidget(y3, DockPanel.TabBefore, g2);
-  // panel.addWidget(g3, DockPanel.TabBefore, y3);
-  // panel.addWidget(r2, DockPanel.TabBefore, b1);
-  // panel.addWidget(r3, DockPanel.TabBefore, y1);
+  panel.addWidget(cm);
+  panel.addWidget(term, DockPanel.SplitBottom, cm);
+  panel.addWidget(text, DockPanel.SplitLeft, cm);
 
   attachWidget(panel, document.body);
 
